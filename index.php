@@ -7,9 +7,10 @@ and open the template in the editor.
 <html>
     <head>
         <meta charset="UTF-8">
-        <title></title>
+        <title>GSB </title>
     </head>
     <body>
+        <h1> YOLO </h1>
         <?php
         // put your code here
         ?>
