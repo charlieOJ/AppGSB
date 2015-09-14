@@ -10,7 +10,7 @@ and open the template in the editor.
         <title>GSB </title>
     </head>
     <body>
-        <h1> YOLO </h1>
+        <h1> YOLO1 </h1>
         <?php
         // put your code here
         ?>
