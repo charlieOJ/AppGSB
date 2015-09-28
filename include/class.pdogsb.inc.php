@@ -17,7 +17,7 @@
 
 class PdoGsb{   		
       	private static $serveur='mysql:host=localhost';
-      	private static $bdd='dbname=gsbV2';   		
+      	private static $bdd='dbname=gsb_frais';   		
       	private static $user='root' ;    		
       	private static $mdp='' ;	
 		private static $monPdo;
@@ -53,14 +53,19 @@ class PdoGsb{
  * @param $mdp
  * @return l'id, le nom et le prénom sous la forme d'un tableau associatif 
 */
-	public function getInfosVisiteur($login, $mdp){
-		$req = "select visiteur.id as id, visiteur.nom as nom, visiteur.prenom as prenom from visiteur 
-		where visiteur.login='$login' and visiteur.mdp='$mdp'";
+	public function getInfosVisiteur($login, $mdp, $type){
+		$req = "select visiteur.id as id,
+                        visiteur.nom as nom,
+                        visiteur.prenom as prenom,
+                        visiteur.type as type 
+                        from visiteur 
+		where visiteur.login='$login' and visiteur.mdp='$mdp' and visiteur.type='$type'";
 		$rs = PdoGsb::$monPdo->query($req);
 		$ligne = $rs->fetch();
 		return $ligne;
 	}
-
+        
+       
 /**
  * Retourne sous forme d'un tableau associatif toutes les lignes de frais hors forfait
  * concernées par les deux arguments
