@@ -32,7 +32,7 @@ switch($action){
 			$nomComp =  $visiteur['nom'];
 			$prenomComp = $visiteur['prenom'];
                         $type= $visiteur ['type'];
-			connecter($id,$nomComp,$prenomComp);
+			connecter($id,$nomComp,$prenomComp, $type);
 			include("vues/v_sommaireComp.php");
                     }
 		}
