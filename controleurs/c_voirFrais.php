@@ -1,8 +1,12 @@
 <?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+    if(!isset($_REQUEST['action'])){
+            $_REQUEST['action'] = 'voirFrais';
+    }
+    $action = $_REQUEST['action'];
+    switch($action){
+            case 'recherche':{
+                include("vues/v_rechercheFrais.php");
+                break;
+            }
+            
+    }

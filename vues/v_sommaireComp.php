@@ -9,11 +9,11 @@
       </div>  
         <ul id="menuList">
 			<li >
-				  Visiteur :<br>
+				  Comtpable :<br>
 				<?php echo $_SESSION['prenomComp']."  ".$_SESSION['nomComp']  ?>
 			</li>
            <li class="smenu">
-              <a href="index.php?uc=voirFrais&action=voirFrais" title="Voir fiche de frais ">Voir fiche de frais</a>
+              <a href="index.php?uc=voirFrais&action=modeRecherche" title="Voir fiche de frais ">Voir fiche de frais</a>
            </li>
            <li class="smenu">
               <a href="index.php?uc=modifierPaiement&action=selectionnerMois" title="Modifier paiement">Modifier payement</a>
