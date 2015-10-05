@@ -65,6 +65,30 @@ class PdoGsb{
 		return $ligne;
 	}
         
+        
+/**
+ *  * Retourne le nom prenom et id d'un visiteur
+ 
+
+ * @return l'id, le nom et le prénom sous la forme d'un tableau associatif 
+ */
+        public function getLesVisiteurs(){
+            // Déclaration d'un tableau
+            $visiteurs = array();
+            // Requete de selction des visiteurs
+            try{
+                $sql="select visiteur.id as id, visiteur.nom as nom, visiteur.prenom as prenom from visiteur where visiteur.type='visi'";
+                $resultat=PdoGsb::$monPdo->query($sql);
+                while($ligne=$resultat->fetch(PDO::FETCH_OBJ)){
+                        $visiteurs[]=$ligne;
+                }
+                
+            }
+            catch(PDOException $e){
+                    echo "erreur dans la requete " .$e->getMessage();
+            }
+            return $visiteurs;
+        }
        
 /**
  * Retourne sous forme d'un tableau associatif toutes les lignes de frais hors forfait
@@ -201,7 +225,7 @@ class PdoGsb{
 /**
  * Crée une nouvelle fiche de frais et les lignes de frais au forfait pour un visiteur et un mois donnés
  
- * récupère le dernier mois en cours de traitement, met à 'CL' son champs idEtat, crée une nouvelle fiche de frais
+ * récupère le dernier mois en cours de traitement, met à 'CR' son champs idEtat, crée une nouvelle fiche de frais
  * avec un idEtat à 'CR' et crée les lignes de frais forfait de quantités nulles 
  * @param $idVisiteur 
  * @param $mois sous la forme aaaamm
@@ -210,7 +234,7 @@ class PdoGsb{
 		$dernierMois = $this->dernierMoisSaisi($idVisiteur);
 		$laDerniereFiche = $this->getLesInfosFicheFrais($idVisiteur,$dernierMois);
 		if($laDerniereFiche['idEtat']=='CR'){
-				$this->majEtatFicheFrais($idVisiteur, $dernierMois,'CL');
+				$this->majEtatFicheFrais($idVisiteur, $dernierMois,'CR');
 				
 		}
 		$req = "insert into fichefrais(idvisiteur,mois,nbJustificatifs,montantValide,dateModif,idEtat) 
@@ -266,10 +290,10 @@ class PdoGsb{
 			$numAnnee =substr( $mois,0,4);
 			$numMois =substr( $mois,4,2);
 			$lesMois["$mois"]=array(
-		     "mois"=>"$mois",
-		    "numAnnee"  => "$numAnnee",
-			"numMois"  => "$numMois"
-             );
+                            "mois"=>"$mois",
+                            "numAnnee"  => "$numAnnee",
+                            "numMois"  => "$numMois"
+                        );
 			$laLigne = $res->fetch(); 		
 		}
 		return $lesMois;
