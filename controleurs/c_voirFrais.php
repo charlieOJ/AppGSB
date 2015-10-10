@@ -1,4 +1,5 @@
 <?php
+
     if(!isset($_REQUEST['action'])){
             $_REQUEST['action'] = 'voirFrais';
     }
@@ -12,15 +13,15 @@
             }
             case 'recherche2':{
                 require_once ("include/class.pdogsb.inc.php");
-                $idVisi=$_GET['visiteur'];
-                $lesMois=$pdo->getLesMoisDisponibles($idVisi);
+                $_SESSION['idVisi']=$_GET['visiteur'];
+                $lesMois=$pdo->getLesMoisDisponibles($_SESSION['idVisi']);
                 include("vues/v_rechercheMois.php");
                 break;
             }
             case 'resSearch':{
-                $idVisi=$_GET['visiteur'];
-                $mois=$_GET['mois'];
-                $annee=$_GET['annee'];
+                $_SESSION['idVisi']=$_GET['visiteur'];
+                $_SESSION['mois']=$_GET['mois'];
+                $_SESSION['annee']=$_GET['annee'];
                 include("vues/v_resSearch.php");
                 break;
             }

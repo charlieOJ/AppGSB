@@ -4,12 +4,12 @@
    <?php
    
    if (isset($_POST['valider'])){
-    foreach($lesMois as $unMois){
-        $mois=$unMois['numMois'];
-        $annee=$unMois['numAnnee'];
+        foreach($lesMois as $unMois){
+            $_SESSION['mois']=$unMois['numMois'];
+            $_SESSION['annee']=$unMois['numAnnee'];
+        }
+        header("Location:index.php?uc=voirFrais&action=resSearch&visiteur=".$_SESSION['idVisi']."&mois=".$_SESSION['mois']."&annee=".$_SESSION['annee']);
     }
-       header("Location:index.php?uc=voirFrais&action=resSearch&visiteur=".$idVisi."&mois=".$mois."&annee=".$annee);
-   }
    else{
    ?>
     
