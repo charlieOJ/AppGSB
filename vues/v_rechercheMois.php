@@ -4,22 +4,19 @@
    <?php
    
    if (isset($_POST['valider'])){
-        foreach($lesMois as $unMois){
-            $_SESSION['mois']=$unMois['numMois'];
-            $_SESSION['annee']=$unMois['numAnnee'];
-        }
-        header("Location:index.php?uc=voirFrais&action=resSearch&visiteur=".$_SESSION['idVisi']."&mois=".$_SESSION['mois']."&annee=".$_SESSION['annee']);
+        
+        header("Location:index.php?uc=voirFrais&action=resSearch&visiteur=".$_SESSION['idVisi']."&mois=".$_POST['mois']);
     }
    else{
    ?>
     
-    <form method="POST" action="index.php?uc=voirFrais&action=recherche">
+    <form method="POST" action="index.php?uc=voirFrais&action=recherche2&visiteur=<?php echo $_SESSION['idVisi']; ?>">
         <fieldset>
             <legend>Selectionner un mois:</legend>
             <select name='mois'>
                 <?php
                 foreach($lesMois as $unMois){
-                    echo "<option name='mois' value='".$lesMois."'>".$unMois['numMois']."/".$unMois['numAnnee']."</option>";
+                    echo "<option name='mois' value='".$unMois['mois']."'>".$unMois['numMois']."/".$unMois['numAnnee']."</option>";
                 }
                 ?>
             </select>

@@ -1,5 +1,5 @@
 <?php
-
+include("vues/v_sommaireComp.php");
     if(!isset($_REQUEST['action'])){
             $_REQUEST['action'] = 'voirFrais';
     }
@@ -19,9 +19,11 @@
                 break;
             }
             case 'resSearch':{
+                require_once ("include/class.pdogsb.inc.php");
                 $_SESSION['idVisi']=$_GET['visiteur'];
-                $_SESSION['mois']=$_GET['mois'];
-                $_SESSION['annee']=$_GET['annee'];
+                $_SESSION['leMois']=$_GET['mois'];
+                $lesInfoFicheFrais=$pdo->getLesInfosFicheFrais($_SESSION['idVisi'],$_SESSION['leMois']);
+                //$lesMois=$pdo->getLesMoisDisponibles($_SESSION['idVisi']);
                 include("vues/v_resSearch.php");
                 break;
             }

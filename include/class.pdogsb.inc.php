@@ -77,7 +77,12 @@ class PdoGsb{
             $visiteurs = array();
             // Requete de selction des visiteurs
             try{
-                $sql="select visiteur.id as id, visiteur.nom as nom, visiteur.prenom as prenom from visiteur where visiteur.type='visi'";
+                $sql="select visiteur.id as id, visiteur.nom as nom, visiteur.prenom as prenom "
+                        . " from visiteur, fichefrais, etat "
+                        . " where visiteur.type='visi'"
+                        . " and fichefrais.idEtat=etat.id"
+                        . " and fichefrais.idVisiteur=visiteur.id"
+                        . " and etat.id='VA' ";
                 $resultat=PdoGsb::$monPdo->query($sql);
                 while($ligne=$resultat->fetch(PDO::FETCH_OBJ)){
                         $visiteurs[]=$ligne;
@@ -306,11 +311,13 @@ class PdoGsb{
  * @return un tableau avec des champs de jointure entre une fiche de frais et la ligne d'état 
 */	
 	public function getLesInfosFicheFrais($idVisiteur,$mois){
-		$req = "select ficheFrais.idEtat as idEtat, ficheFrais.dateModif as dateModif, ficheFrais.nbJustificatifs as nbJustificatifs, 
-			ficheFrais.montantValide as montantValide, etat.libelle as libEtat from  fichefrais inner join Etat on ficheFrais.idEtat = Etat.id 
-			where fichefrais.idvisiteur ='$idVisiteur' and fichefrais.mois = '$mois'";
+		$req = "select fichefrais.idEtat as idEtat, fichefrais.dateModif as dateModif,
+                        fichefrais.nbJustificatifs as nbJustificatifs, fichefrais.montantValide as montantValide,
+                        etat.libelle as libEtat 
+                        from  fichefrais join etat on fichefrais.idEtat = etat.id 
+			where fichefrais.idVisiteur ='$idVisiteur' and fichefrais.mois = '$mois'";
 		$res = PdoGsb::$monPdo->query($req);
-		$laLigne = $res->fetch();
+		$laLigne = $res->fetchAll();
 		return $laLigne;
 	}
 /**
